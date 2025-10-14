@@ -269,10 +269,14 @@ class OpenVLAPPO:
         self.ppo_huber_delta = 10.0
         self.tpdv = self.policy.tpdv
         self.tpdv_vn = self.policy.tpdv_vn
+        self.trust_type = self.args.trust_type
+        self.rollback_alpha = self.args.rollback_alpha
+        self.trust_region_delta = self.args.trust_region_delta
 
     def train_ppo_step(self, idx, total, batch):
         obs_image, instruct, actions, value_preds, returns, masks, old_logprob, advantages = batch
 
+        # --------------------- preprocess ---------------------
         obs = dict(image=torch.tensor(obs_image).to(self.tpdv["device"]), task_description=instruct)  # uint8
         actions = torch.tensor(actions).to(self.tpdv["device"])  # int32
         value_preds = torch.tensor(value_preds).to(**self.tpdv)
@@ -282,15 +286,60 @@ class OpenVLAPPO:
         advantages = torch.tensor(advantages).to(**self.tpdv)
         returns_norm = returns.to(**self.tpdv)
 
-        # Policy loss
+        # ---------------------- Policy loss ----------------------
         logprob, entropy, values = self.policy.evaluate_actions(obs, actions)
 
         ratio = torch.exp(logprob - old_logprob)
         surr1 = ratio * advantages
-        surr2 = torch.clamp(ratio, 1 - self.ppo_clip, 1 + self.ppo_clip) * advantages
-        policy_loss = -torch.min(surr1, surr2).sum(dim=-1, keepdim=True).mean()
-
-        # Value loss
+        approx_kl = None
+        
+        # 根据 trust_type 计算不同的 surr2
+        if self.trust_type == "clip":
+            surr2 = torch.clamp(ratio, 1 - self.ppo_clip, 1 + self.ppo_clip) * advantages
+            policy_loss = -torch.min(surr1, surr2).sum(dim=-1, keepdim=True).mean()
+            
+        elif self.trust_type == "rollback":
+            ratio_rollback_low = -self.rollback_alpha * ratio.clone() + (1.0 + self.rollback_alpha) * (1 - self.ppo_clip)
+            ratio_rollback = torch.where(ratio <= 1 - self.ppo_clip, ratio_rollback_low, ratio.clone())
+            
+            ratio_rollback_high = -self.rollback_alpha * ratio.clone() + (1 + self.rollback_alpha) * (1 + self.ppo_clip)
+            ratio_rollback = torch.where(ratio >= 1 + self.ppo_clip, ratio_rollback_high, ratio_rollback.clone())
+            
+            surr2 = ratio_rollback * advantages
+            policy_loss = -torch.min(surr1, surr2).sum(dim=-1, keepdim=True).mean()
+            
+        elif self.trust_type == "trust_region":
+            with torch.no_grad():
+                approx_log_ratio = (old_logprob - logprob).clamp(-40.0, 40.0)
+                approx_kl = torch.expm1(approx_log_ratio) - approx_log_ratio
+                ratio_trust_region = torch.where(approx_kl >= self.trust_region_delta, 1.0, ratio.clone())
+            
+            surr2 = ratio_trust_region * advantages
+            policy_loss = -torch.min(surr1, surr2).sum(dim=-1, keepdim=True).mean()
+            
+        elif self.trust_type == "truly":
+            with torch.no_grad():
+                approx_log_ratio = (old_logprob - logprob).clamp(-40.0, 40.0)
+                approx_kl = torch.expm1(approx_log_ratio) - approx_log_ratio
+                ratio_detach = torch.exp(-approx_log_ratio)
+                
+                cond_truly = torch.logical_and(
+                    approx_kl >= self.trust_region_delta,
+                    ratio_detach * advantages >= advantages
+                )
+            
+            penalty = self.rollback_alpha * torch.where(
+                cond_truly,
+                torch.sqrt(torch.clamp(approx_kl, min=0.0)),
+                np.sqrt(self.trust_region_delta)
+            )   
+            
+            policy_loss = -(surr1 - penalty).sum(dim=-1, keepdim=True).mean()
+            
+        else:
+            raise ValueError(f"Unknown trust_type: {self.trust_type}")
+        
+        # ----------------------- Value loss -----------------------
         value_pred_clipped = value_preds + (values - value_preds).clamp(-self.ppo_clip, self.ppo_clip)
         error_clipped = returns_norm - value_pred_clipped
         error_original = returns_norm - values
@@ -303,10 +352,10 @@ class OpenVLAPPO:
 
         value_loss = value_loss.mean()
 
-        # Entropy loss
+        # ----------------------- Entropy loss -----------------------
         entropy_loss = entropy.mean()
 
-        # Total loss
+        # ------------------------ Total loss ------------------------
         loss = policy_loss + value_loss - self.ppo_entropy_coef * entropy_loss
         loss /= self.args.alg_gradient_accum
         loss.backward()
@@ -337,6 +386,10 @@ class OpenVLAPPO:
             logprob_mean=logprob.mean().item(),
             logprob_old_mean=old_logprob.mean().item(),
         )
+        
+        if approx_kl is not None:
+            info["approx_kl"] = approx_kl.mean().item()
+            
         if grad_norm is not None:
             info["grad_norm"] = grad_norm.item()
 

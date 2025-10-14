@@ -16,6 +16,7 @@ import yaml
 from tqdm import tqdm
 from mani_skill.utils import visualization
 from mani_skill.utils.visualization.misc import images_to_video
+from typing import List, Literal, Optional, Sequence, Tuple
 
 from simpler_env.env.simpler_wrapper import SimlerWrapper
 from simpler_env.utils.replay_buffer import SeparatedReplayBuffer
@@ -26,7 +27,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 @dataclass
 class Args:
-    env_id: Annotated[str, tyro.conf.arg(aliases=["-e"])] = "PutCarrotOnPlateInScene-v1"
+    env_id: Annotated[str, tyro.conf.arg(aliases=["-e"])] = "PutOnPlateInScene25Main-v3"
     """The environment ID of the task you want to simulate. Can be one of
     PutCarrotOnPlateInScene-v1, PutSpoonOnTableClothInScene-v1, StackGreenCubeOnYellowCubeBakedTexInScene-v1, PutEggplantInBasketScene-v1"""
 
@@ -56,7 +57,7 @@ class Args:
     buffer_lambda: float = 0.95
 
     # vla
-    vla_path: str = "openvla/openvla-7b"
+    vla_path: str = "gen-robot/openvla-7b-rlvla-warmup" # after pretrain
     vla_unnorm_key: str = "bridge_orig"
     vla_load_path: str = ""
     vla_lora_rank: int = 32
@@ -74,11 +75,16 @@ class Args:
     alg_gradient_accum: int = 20
     alg_ppo_epoch: int = 1
     alg_entropy_coef: float = 0.0
-
+    
+    trust_type: Literal["clip", "rollback", "truly", "trust_region"] = "clip"
+    rollback_alpha: float = 0.005
+    trust_region_delta: float = 0.1
+    
     # other
     wandb: bool = True
     only_render: bool = False
     render_info: bool = False
+
 
 
 
@@ -102,7 +108,7 @@ class Runner:
             mode="online" if self.args.wandb else "offline",
         )
         self.save_dir = Path(wandb.run.dir)
-        self.glob_dir = Path(wandb.run.dir) / ".." / "glob"
+        self.glob_dir = Path("outputs") / self.args.name
         self.glob_dir.mkdir(parents=True, exist_ok=True)
 
         yaml.dump(all_args.__dict__, open(self.glob_dir / "config.yaml", "w"))
@@ -187,7 +193,7 @@ class Runner:
     def train(self):
         self.policy.prep_training()
 
-        if self.args.alg_name == "ppo":
+        if "ppo" in self.args.alg_name:
             train_info = self.alg.train_ppo(self.buffer)
         elif self.args.alg_name == "grpo":
             train_info = self.alg.train_grpo(self.buffer)
@@ -332,7 +338,7 @@ class Runner:
             obs_img, instruction, info = self.env.reset(obj_set="train", same_init=self.args.use_same_init)
             self.buffer.warmup(obs_img.cpu().numpy(), instruction)
 
-            for _ in tqdm(range(self.args.episode_len), desc="rollout"):
+            for _ in range(self.args.episode_len):
                 value, action, logprob = self.collect()
                 obs_img, reward, done, env_info = self.env.step(action)
 

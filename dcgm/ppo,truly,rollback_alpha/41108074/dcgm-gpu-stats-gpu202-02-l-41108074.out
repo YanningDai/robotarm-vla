@@ -1,0 +1,81 @@
+Successfully retrieved statistics for job: 41108074. 
++------------------------------------------------------------------------------+
+| GPU ID: 1                                                                    |
++====================================+=========================================+
+|-----  Execution Stats  ------------+-----------------------------------------|
+| Start Time                         | Sun Oct 12 02:08:18 2025                |
+| End Time                           | Tue Oct 14 11:08:20 2025                |
+| Total Execution Time (sec)         | 205202                                  |
+| No. of Processes                   | 2                                       |
++-----  Performance Stats  ----------+-----------------------------------------+
+| Energy Consumed (Joules)           | 298653                                  |
+| Power Usage (Watts)                | Avg: 83.569, Max: 171.855, Min: 75.926  |
+| Max GPU Memory Used (bytes)        | 12236587008                             |
+| SM Clock (MHz)                     | Avg: 1247, Max: 1410, Min: 1155         |
+| Memory Clock (MHz)                 | Avg: 1593, Max: 1593, Min: 1593         |
+| SM Utilization (%)                 | Avg: 10, Max: 96, Min: 0                |
+| Memory Utilization (%)             | Avg: 0, Max: 3, Min: 0                  |
+| PCIe Rx Bandwidth (megabytes)      | Avg: N/A, Max: N/A, Min: N/A            |
+| PCIe Tx Bandwidth (megabytes)      | Avg: N/A, Max: N/A, Min: N/A            |
++-----  Event Stats  ----------------+-----------------------------------------+
+| Single Bit ECC Errors              | 0                                       |
+| Double Bit ECC Errors              | 0                                       |
+| PCIe Replay Warnings               | 0                                       |
+| Critical XID Errors                | 0                                       |
++-----  Slowdown Stats  -------------+-----------------------------------------+
+| Due to - Power (%)                 | 0                                       |
+|        - Thermal (%)               | 0                                       |
+|        - Reliability (%)           | Not Supported                           |
+|        - Board Limit (%)           | Not Supported                           |
+|        - Low Utilization (%)       | Not Supported                           |
+|        - Sync Boost (%)            | 0                                       |
++--  Compute Process Utilization  ---+-----------------------------------------+
+| PID                                | 3603728                                 |
+|     Avg SM Utilization (%)         | 12                                      |
+|     Avg Memory Utilization (%)     | 0                                       |
++--  Graphics Process Utilization  ---+-----------------------------------------+
+| PID                                | 3603728                                 |
+|     Avg SM Utilization (%)         | 12                                      |
+|     Avg Memory Utilization (%)     | 0                                       |
++-----  Overall Health  -------------+-----------------------------------------+
+| Overall Health                     | Healthy                                 |
++------------------------------------+-----------------------------------------+
+
++------------------------------------------------------------------------------+
+| GPU ID: 3                                                                    |
++====================================+=========================================+
+|-----  Execution Stats  ------------+-----------------------------------------|
+| Start Time                         | Sun Oct 12 02:08:18 2025                |
+| End Time                           | Tue Oct 14 11:08:20 2025                |
+| Total Execution Time (sec)         | 205202                                  |
+| No. of Processes                   | 1                                       |
++-----  Performance Stats  ----------+-----------------------------------------+
+| Energy Consumed (Joules)           | 1121531                                 |
+| Power Usage (Watts)                | Avg: 316.105, Max: 437.849, Min: 83.206 |
+| Max GPU Memory Used (bytes)        | 36593205248                             |
+| SM Clock (MHz)                     | Avg: 1402, Max: 1410, Min: 1350         |
+| Memory Clock (MHz)                 | Avg: 1593, Max: 1593, Min: 1593         |
+| SM Utilization (%)                 | Avg: 80, Max: 100, Min: 0               |
+| Memory Utilization (%)             | Avg: 36, Max: 52, Min: 0                |
+| PCIe Rx Bandwidth (megabytes)      | Avg: N/A, Max: N/A, Min: N/A            |
+| PCIe Tx Bandwidth (megabytes)      | Avg: N/A, Max: N/A, Min: N/A            |
++-----  Event Stats  ----------------+-----------------------------------------+
+| Single Bit ECC Errors              | 0                                       |
+| Double Bit ECC Errors              | 0                                       |
+| PCIe Replay Warnings               | 0                                       |
+| Critical XID Errors                | 0                                       |
++-----  Slowdown Stats  -------------+-----------------------------------------+
+| Due to - Power (%)                 | 0                                       |
+|        - Thermal (%)               | 0                                       |
+|        - Reliability (%)           | Not Supported                           |
+|        - Board Limit (%)           | Not Supported                           |
+|        - Low Utilization (%)       | Not Supported                           |
+|        - Sync Boost (%)            | 0                                       |
++--  Compute Process Utilization  ---+-----------------------------------------+
+| PID                                | 3603728                                 |
+|     Avg SM Utilization (%)         | 79                                      |
+|     Avg Memory Utilization (%)     | 35                                      |
++-----  Overall Health  -------------+-----------------------------------------+
+| Overall Health                     | Healthy                                 |
++------------------------------------+-----------------------------------------+
+
