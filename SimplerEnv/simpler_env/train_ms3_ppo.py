@@ -108,8 +108,12 @@ class Runner:
             mode="online" if self.args.wandb else "offline",
         )
         self.save_dir = Path(wandb.run.dir)
-        self.glob_dir = Path("outputs") / self.args.name
+        if self.args.wandb:
+            self.glob_dir = Path("outputs") / self.args.name
+        else:  # offline的时候用默认地址，方便统计数据
+            self.glob_dir = Path(wandb.run.dir) / ".." / "glob"
         self.glob_dir.mkdir(parents=True, exist_ok=True)
+
 
         yaml.dump(all_args.__dict__, open(self.glob_dir / "config.yaml", "w"))
 
@@ -228,7 +232,6 @@ class Runner:
         # infos
         env_stats = {k: np.mean(v) for k, v in env_infos.items()}
         env_stats = env_stats.copy()
-
         print(pprint.pformat({k: round(v, 4) for k, v in env_stats.items()}))
         print(f"")
 

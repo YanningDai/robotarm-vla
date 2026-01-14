@@ -11,52 +11,70 @@ from pathlib import Path
 
 # ============================================================
 # 训练任务配置
-# 格式: (alg_name, trust_type, rollback_alpha, trust_region_delta, seed)
+# 格式: (alg_name, trust_type, rollback_alpha, trust_region_delta, seed, vla_load_path)
+# vla_load_path 为空字符串 "" 表示不使用 (训练新模型)
 # ============================================================
 TRAIN_EXPERIMENTS = [
     # PPO with clip (baseline)
-    # ("ppo", "clip", 0.0, 0.0, 0),
+    # ("ppo", "clip", 0.0, 0.0, 0, ""),
     
     # PPO with rollback
-    # ("ppo", "rollback", 0.001, 0.0, 0),
-    # ("ppo", "rollback", 0.005, 0.0, 0),
-    # ("ppo", "rollback", 0.01, 0.0, 0),
-    # ("ppo", "rollback", 0.05, 0.0, 0),
-    # ("ppo", "rollback", 0.1, 0.0, 0),
+    # ("ppo", "rollback", 0.001, 0.0, 0, ""),
+    # ("ppo", "rollback", 0.005, 0.0, 0, ""),
+    # ("ppo", "rollback", 0.01, 0.0, 0, ""),
+    # ("ppo", "rollback", 0.05, 0.0, 0, ""),
+    # ("ppo", "rollback", 0.1, 0.0, 0, ""),
 
-    # ("ppo", "rollback", 0.5, 0.0, 0),
-    # ("ppo", "rollback", 1.0, 0.0, 0),
-    # ("ppo", "rollback", 5.0, 0.0, 0),
-    # ("ppo", "rollback", 10.0, 0.0, 0),
-    # ("ppo", "rollback", 20.0, 0.0, 0),
-    # ("ppo", "rollback", 50.0, 0.0, 0),
+    # ("ppo", "rollback", 0.5, 0.0, 0, ""),
+    # ("ppo", "rollback", 1.0, 0.0, 0, ""),
+    # ("ppo", "rollback", 5.0, 0.0, 0, ""),
+    # ("ppo", "rollback", 10.0, 0.0, 0, ""),
+    # ("ppo", "rollback", 20.0, 0.0, 0, ""),
+    # ("ppo", "rollback", 50.0, 0.0, 0, ""),
     
     # PPO with trust_region
-    # ("ppo", "trust_region", 0.0, 0.0001, 0),
-    # ("ppo", "trust_region", 0.0, 0.001, 0),
-    # ("ppo", "trust_region", 0.0, 0.01, 0),
-    # ("ppo", "trust_region", 0.0, 0.1, 0),
-    # ("ppo", "trust_region", 0.0, 0.5, 0),
-    # ("ppo", "trust_region", 0.0, 1.0, 0),
-    # ("ppo", "trust_region", 0.0, 5.0, 0),
-    # ("ppo", "trust_region", 0.0, 10.0, 0),
+    # ("ppo", "trust_region", 0.0, 0.0001, 0, ""),
+    # ("ppo", "trust_region", 0.0, 0.001, 0, ""),
+    # ("ppo", "trust_region", 0.0, 0.01, 0, ""),
+    # ("ppo", "trust_region", 0.0, 0.1, 0, ""),
+    # ("ppo", "trust_region", 0.0, 0.5, 0, ""),
+    # ("ppo", "trust_region", 0.0, 1.0, 0, ""),
+    # ("ppo", "trust_region", 0.0, 5.0, 0, ""),
+    # ("ppo", "trust_region", 0.0, 10.0, 0, ""),
     
     # PPO with truly
-    ("ppo", "truly", 0.5, 0.1, 0),
-    ("ppo", "truly", 0.1, 0.1, 0),
-    ("ppo", "truly", 0.01, 0.1, 0),
-    ("ppo", "truly", 0.001, 0.1, 0),
-    ("ppo", "truly", 0.1, 0.01, 0),
-    ("ppo", "truly", 0.01, 0.01, 0),
-    ("ppo", "truly", 0.1, 0.5, 0),
-    ("ppo", "truly", 0.01, 0.5, 0),
-    ("ppo", "truly", 0.001, 0.5, 0),
+    # ("ppo", "truly", 0.5, 0.1, 0, ""),
+    # ("ppo", "truly", 0.5, 0.01, 0, ""),
+    # ("ppo", "truly", 1.0, 0.01, 0, ""),
+    # ("ppo", "truly", 2.0, 0.01, 0, ""),
+    # ("ppo", "truly", 0.5, 0.05, 0, ""),
+    # ("ppo", "truly", 1.0, 0.05, 0, ""),
+    # ("ppo", "truly", 2.0, 0.05, 0, ""),
+    # ("ppo", "truly", 0.1, 0.1, 0, ""),
+    
+    
+    # ("ppo", "truly", 0.1, 0.5, 0, ""),
+    # ("ppo", "truly", 0.5, 0.5, 0, ""),
+    # ("ppo", "truly", 1.0, 0.5, 0, ""),
+    # ("ppo", "truly", 2.0, 0.5, 0, ""),
+    # ("ppo", "truly", 2.0, 0.1, 0, ""),
+    
     
     # Multiple seeds
-    # ("ppo", "clip", 0.0, 0.0, 1),
+    # ("ppo", "clip", 0.0, 0.0, 1, ""),
     
     # GRPO (uncomment if needed)
-    # ("grpo", "clip", 0.0, 0.0, 0),
+    # ("grpo", "clip", 0.0, 0.0, 0, ""),
+    
+    # Resume examples
+    # ("ppo", "clip", 0.0, 0.0, 0, "../SimplerEnv/outputs/ppo,clip,rollback_alpha=0.0,trust_region_delta=0.0,seed=0/steps_0239"),
+    # ("ppo", "truly", 0.1, 0.1, 0, "../SimplerEnv/outputs/ppo,truly,rollback_alpha=0.1,trust_region_delta=0.1,seed=0/steps_0239"),
+    # ("ppo", "truly", 0.5, 0.1, 0, "../SimplerEnv/outputs/ppo,truly,rollback_alpha=0.5,trust_region_delta=0.1,seed=0/steps_0239"),
+    # ("ppo", "truly", 0.5, 0.5, 0, "../SimplerEnv/outputs/ppo,truly,rollback_alpha=0.5,trust_region_delta=0.5,seed=0/steps_0239"),
+    # ("ppo", "truly", 1.0, 0.05, 0, "../SimplerEnv/outputs/ppo,truly,rollback_alpha=1.0,trust_region_delta=0.05,seed=0/steps_0239"),
+    # ("ppo", "truly", 1.0, 0.5, 0, "../SimplerEnv/outputs/ppo,truly,rollback_alpha=1.0,trust_region_delta=0.5,seed=0/steps_0239"),
+    # ("ppo", "truly", 2.0, 0.1, 0, "../SimplerEnv/outputs/ppo,truly,rollback_alpha=2.0,trust_region_delta=0.1,seed=0/steps_0239"),
+
 ]
 
 # ============================================================
@@ -64,17 +82,28 @@ TRAIN_EXPERIMENTS = [
 # 格式: checkpoint 路径
 # ============================================================
 EVAL_CHECKPOINTS = [
-    # "../SimplerEnv/wandb/run-xxx-xxx/glob/steps_0000",
-    # "../SimplerEnv/wandb/run-xxx-xxx/glob/steps_0010",
-    # "../SimplerEnv/wandb/run-xxx-xxx/glob/steps_0020",
+    
+    "../SimplerEnv/outputs/resume_ppo,clip,rollback_alpha=0.0,trust_region_delta=0.0,seed=0/steps_0159",  # standard ppo
+    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=0.1,trust_region_delta=0.1,seed=0/steps_0159",
+    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=0.5,trust_region_delta=0.1,seed=0/steps_0159",
+    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=0.5,trust_region_delta=0.5,seed=0/steps_0159",
+    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=1.0,trust_region_delta=0.05,seed=0/steps_0159",
+    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=1.0,trust_region_delta=0.5,seed=0/steps_0159",
+    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=2.0,trust_region_delta=0.1,seed=0/steps_0159",
 ]
 # ============================================================
 
 
-def submit_train_job(alg_name, trust_type, rollback_alpha, trust_region_delta, seed):
+def submit_train_job(alg_name, trust_type, rollback_alpha, trust_region_delta, seed, vla_load_path=""):
     """提交一个训练任务"""
     
-    job_name = f"{alg_name},{trust_type},rollback_alpha={rollback_alpha},trust_region_delta={trust_region_delta},seed={seed}"
+    base_job_name = f"{alg_name},{trust_type},rollback_alpha={rollback_alpha},trust_region_delta={trust_region_delta},seed={seed}"
+
+    # 如果有 vla_load_path（resume），在前面加 "resume" 前缀
+    if vla_load_path:
+        job_name = f"resume_{base_job_name}"
+    else:
+        job_name = base_job_name
     
     cmd = [
         "sbatch",
@@ -84,7 +113,8 @@ def submit_train_job(alg_name, trust_type, rollback_alpha, trust_region_delta, s
         trust_type,
         str(rollback_alpha),
         str(trust_region_delta),
-        str(seed)
+        str(seed),
+        vla_load_path  # 第 6 个参数
     ]
     
     print(f"Submitting training: {job_name}")
@@ -103,7 +133,8 @@ def submit_eval_job(checkpoint_path):
     """提交一个评估任务"""
     
     ckpt_name = Path(checkpoint_path).name
-    job_name = f"eval_{ckpt_name}"
+    second_last_dir = Path(checkpoint_path).parent.name
+    job_name = f"eval_{ckpt_name}_{second_last_dir}"
     
     cmd = [
         "sbatch",
@@ -136,9 +167,16 @@ def main():
         print("="*60)
         print(f"TRAINING JOBS: {len(TRAIN_EXPERIMENTS)} experiments\n")
         
-        for i, (alg_name, trust_type, rollback_alpha, trust_region_delta, seed) in enumerate(TRAIN_EXPERIMENTS, 1):
+        for i, exp in enumerate(TRAIN_EXPERIMENTS, 1):
+            # 支持 5 元组（向后兼容）和 6 元组格式
+            if len(exp) == 5:
+                alg_name, trust_type, rollback_alpha, trust_region_delta, seed = exp
+                vla_load_path = ""
+            else:
+                alg_name, trust_type, rollback_alpha, trust_region_delta, seed, vla_load_path = exp
+
             print(f"[Train {i}/{len(TRAIN_EXPERIMENTS)}]", end=" ")
-            job_id = submit_train_job(alg_name, trust_type, rollback_alpha, trust_region_delta, seed)
+            job_id = submit_train_job(alg_name, trust_type, rollback_alpha, trust_region_delta, seed, vla_load_path)
             if job_id:
                 all_jobs.append(("train", job_id))
             time.sleep(0.5)

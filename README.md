@@ -270,7 +270,7 @@ for seed in 0 1 2 ; do
         --env_id="${env_id}" \
         --seed=${seed} \
         --buffer_inferbatch=64 \
-        --no_wandb --only_render
+        --only_render
     done
 done
 

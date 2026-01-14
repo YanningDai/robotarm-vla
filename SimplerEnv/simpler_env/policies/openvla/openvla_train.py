@@ -312,29 +312,35 @@ class OpenVLAPPO:
             with torch.no_grad():
                 approx_log_ratio = (old_logprob - logprob).clamp(-40.0, 40.0)
                 approx_kl = torch.expm1(approx_log_ratio) - approx_log_ratio
-                ratio_trust_region = torch.where(approx_kl >= self.trust_region_delta, 1.0, ratio.clone())
+            ratio_trust_region = torch.where(approx_kl >= self.trust_region_delta, 1.0, ratio.clone())
             
             surr2 = ratio_trust_region * advantages
             policy_loss = -torch.min(surr1, surr2).sum(dim=-1, keepdim=True).mean()
             
         elif self.trust_type == "truly":
+            approx_log_ratio = (old_logprob - logprob).clamp(-40.0, 40.0)
+            approx_kl = torch.expm1(approx_log_ratio) - approx_log_ratio
+            
             with torch.no_grad():
-                approx_log_ratio = (old_logprob - logprob).clamp(-40.0, 40.0)
-                approx_kl = torch.expm1(approx_log_ratio) - approx_log_ratio
-                ratio_detach = torch.exp(-approx_log_ratio)
-                
                 cond_truly = torch.logical_and(
                     approx_kl >= self.trust_region_delta,
-                    ratio_detach * advantages >= advantages
+                    ratio * advantages >= advantages
                 )
             
+            # penalty = self.rollback_alpha * torch.where(
+            #     cond_truly,
+            #     approx_kl, # 这部分更新需要梯度，所以这个approx_kl不能用detach
+            #     self.trust_region_delta
+            # )   
+            
+            # policy_loss = -(surr1 - penalty).sum(dim=-1, keepdim=True).mean()
+
             penalty = self.rollback_alpha * torch.where(
                 cond_truly,
-                torch.sqrt(torch.clamp(approx_kl, min=0.0)),
-                np.sqrt(self.trust_region_delta)
+                approx_kl,
+                -surr1
             )   
-            
-            policy_loss = -(surr1 - penalty).sum(dim=-1, keepdim=True).mean()
+            policy_loss = penalty.sum(dim=-1, keepdim=True).mean()
             
         else:
             raise ValueError(f"Unknown trust_type: {self.trust_type}")

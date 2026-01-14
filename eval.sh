@@ -10,9 +10,12 @@
 #SBATCH --constraint=a100
 #SBATCH --cpus-per-gpu=10
 #SBATCH --mem=80G
+#SBATCH --account=conf-cvpr-2025.11.21-schmidhj
 
 # 接收参数：checkpoint 路径
 vla_load_path=${1}
+
+# 查看err文件 tail -f /ibex/user/daiy0a/runlogs/*41205317*.out.txt
 
 # 检查参数
 if [ -z "$vla_load_path" ]; then
@@ -72,6 +75,7 @@ for seed in 0 1 2; do
         
         CUDA_VISIBLE_DEVICES=$cuda XLA_PYTHON_CLIENT_PREALLOCATE=false \
         python simpler_env/train_ms3_ppo.py \
+            --name="${SLURM_JOB_NAME},${env_id},seed=${seed}" \
             --vla_path="${ckpt_path}" \
             --vla_load_path="${vla_load_path}" \
             --env_id="${env_id}" \
