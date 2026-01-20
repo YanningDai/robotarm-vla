@@ -39,9 +39,9 @@ TRAIN_EXPERIMENTS = [
     
     # ("ppo", "clip_cov", 0.0002, 1.0, 5.0, 0, ""),
     # ("ppo", "soft_gated", 1.0, 1.05, 0, 0, ""),
-    ("ppo", "soft_gated", 1.0, 1.0, 0, 0, ""),
-    ("ppo", "soft_gated", 0.5, 0.5, 0, 0, ""),
-    ("ppo", "soft_gated", 1.0, 1.1, 0, 0, ""),
+    # ("ppo", "soft_gated", 1.0, 1.0, 0, 0, ""),
+    # ("ppo", "soft_gated", 0.5, 0.5, 0, 0, ""),
+    # ("ppo", "soft_gated", 1.0, 1.1, 0, 0, ""),
     
     # ("ppo", "trgppo", 0.07, 0.0, 0, 0, ""),
     # ("ppo", "trgppo", 0.06, 0.0, 0, 0, ""),
@@ -55,7 +55,7 @@ TRAIN_EXPERIMENTS = [
     # ("ppo", "trgc", 0.1, 0.0, 0, 0, ""),
     # ("ppo", "trgc", 0.03, 0.0, 0, 0, ""),
 
-    # ("ppo", "trgc", 1.0, 0.07, 0, 0, ""),
+    # ("ppo", "trgc", 0.07, 1.0, 0, 0, ""),
     # ("ppo", "trgc", 0.31, 0.45, 0, 0, ""),
     # ("ppo", "trgc", 0.284, 0.539, 0, 0, ""),
     
@@ -77,6 +77,59 @@ TRAIN_EXPERIMENTS = [
 # ============================================================
 EVAL_CHECKPOINTS = [
     
+    # "../SimplerEnv/outputs/ppo,clip_cov,para1=0.0002,para2=1.0,para3=5.0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,clip_high,para1=0.2,para2=0.28,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,clip_high,para1=0.329,para2=0.5,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,clip_high,para1=0.329,para2=0.6,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.1,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.2,para2=0.0,para3=0,seed=0/steps_0199",
+    
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.3,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.4,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.5,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.329,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.422,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.28,para3=3.0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.1,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.03,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.06,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.07,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.08,para2=0.0,para3=0,seed=0/steps_0199",
+    
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.05,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.06,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.07,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.08,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.09,para2=0.0,para3=0,seed=0/steps_0199",
+    # "../SimplerEnv/outputs/ppo,soft_gated,para1=1.0,para2=1.05,para3=0,seed=0/steps_0199"
+    
+    # ============================================================
+    "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.25,para3=3.0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.35,para3=3.0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.3,para3=3.0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,dual_clip,para1=0.2,para2=20.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,dual_clip,para1=0.2,para2=10.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,soft_gated,para1=0.5,para2=0.5,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,soft_gated,para1=1.0,para2=1.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,soft_gated,para1=1.0,para2=1.1,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.31,para2=0.45,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.284,para2=0.539,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,trgc,para1=1.0,para2=0.07,para3=0,seed=0/steps_0249",
+    
+    "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.25,para3=3.0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.35,para3=3.0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.3,para3=3.0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,dual_clip,para1=0.2,para2=20.0,para3=0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,dual_clip,para1=0.2,para2=10.0,para3=0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,soft_gated,para1=0.5,para2=0.5,para3=0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,soft_gated,para1=1.0,para2=1.0,para3=0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,soft_gated,para1=1.0,para2=1.1,para3=0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.31,para2=0.45,para3=0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.284,para2=0.539,para3=0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,trgc,para1=1.0,para2=0.07,para3=0,seed=0/steps_0199",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.07,para2=1.0,para3=0,seed=0/steps_0199",
+
+    #-----------------------------------------------------------
     # "../SimplerEnv/outputs/ppo,clip_cov,para1=0.0002,para2=1.0,para3=5.0,seed=0/steps_0249",
     # "../SimplerEnv/outputs/ppo,clip_high,para1=0.2,para2=0.28,para3=0,seed=0/steps_0249",
     # "../SimplerEnv/outputs/ppo,clip_high,para1=0.329,para2=0.5,para3=0,seed=0/steps_0249",
@@ -84,20 +137,31 @@ EVAL_CHECKPOINTS = [
     # "../SimplerEnv/outputs/ppo,clip,para1=0.1,para2=0.0,para3=0,seed=0/steps_0249",
     # "../SimplerEnv/outputs/ppo,clip,para1=0.2,para2=0.0,para3=0,seed=0/steps_0249",
     
-    "../SimplerEnv/outputs/ppo,clip,para1=0.3,para2=0.0,para3=0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,clip,para1=0.4,para2=0.0,para3=0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,clip,para1=0.5,para2=0.0,para3=0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,clip,para1=0.329,para2=0.0,para3=0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,clip,para1=0.422,para2=0.0,para3=0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.28,para3=3.0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,trgc,para1=0.1,para2=0.0,para3=0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,trgc,para1=0.03,para2=0.0,para3=0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,trgc,para1=0.06,para2=0.0,para3=0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,trgc,para1=0.07,para2=0.0,para3=0,seed=0/steps_0249",
-    "../SimplerEnv/outputs/ppo,trgc,para1=0.08,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.3,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.4,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.5,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.329,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.422,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.28,para3=3.0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.1,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.03,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.06,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.07,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.08,para2=0.0,para3=0,seed=0/steps_0249",
+    
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.05,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.06,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.07,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.08,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,trgppo,para1=0.09,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,soft_gated,para1=1.0,para2=1.05,para3=0,seed=0/steps_0249"
+    
+    
+    # 只差这一个
+    # "../SimplerEnv/outputs/ppo,trgc,para1=0.07,para2=1.0,para3=0,seed=0/steps_0249",
+
 ]
 # ============================================================
-
 
 
 

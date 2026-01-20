@@ -417,14 +417,14 @@ class OpenVLAPPO:
             c_high = float(-lambertw(z, k=-1).real)
             
             # temp
-            if abs(delta - 1.0) < 1e-3:
-                c_low, c_high = 1.0, 0.07
-            elif abs(delta - 0.31) < 1e-3:
-                c_low, c_high = 0.31, 0.45
-            elif abs(delta - 0.284) < 1e-3:
-                c_low, c_high = 0.284, 0.539
-            else:
-                raise ValueError(f"Unsupported delta: {delta}")
+            # if abs(delta - 0.07) < 1e-3:
+            #     c_low, c_high = 0.07, 1.0
+            # elif abs(delta - 0.31) < 1e-3:
+            #     c_low, c_high = 0.31, 0.45
+            # elif abs(delta - 0.284) < 1e-3:
+            #     c_low, c_high = 0.284, 0.539
+            # else:
+            #     raise ValueError(f"Unsupported delta: {delta}")
     
             pg_losses2 = -mb_advantage * torch.clamp(
                 ratio,

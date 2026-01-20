@@ -67,7 +67,7 @@ class Args:
     vla_optim_beta1: float = 0.9
     vla_optim_beta2: float = 0.999
     vla_temperature: float = 1.0
-    vla_temperature_eval: float = 0.6
+    vla_temperature_eval: float = 0.1
 
     # ppo & grpo
     alg_name: str = "ppo"  # ppo, grpo

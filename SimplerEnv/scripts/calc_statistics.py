@@ -13,12 +13,11 @@ def extract_params_from_vla_load_path(vla_load_path):
     if len(path_parts) < 2:
         return "", None
     
-    params_str = path_parts[-2]  # 倒数第二个就是参数部分
+    params_str = path_parts[-2] # 倒数第二个就是参数部分
     parts = params_str.split(",")
     
     method_parts = parts[:2]
     params = {}
-    seed = None
     
     for part in parts:
         if part.startswith("para1="):
@@ -27,12 +26,10 @@ def extract_params_from_vla_load_path(vla_load_path):
             params["para2"] = part.split("=")[1]
         elif part.startswith("para3="):
             params["para3"] = part.split("=")[1]
-        elif part.startswith("seed="):
-            seed = part.split("=")[1]
     
     param_items = [f"{k}={v}" for k, v in sorted(params.items())]
-    full_param_str = ",".join(method_parts + param_items)
-    return full_param_str, seed
+    full_param_str = ",".join(method_parts + param_items)+'+'+ path_parts[-1]
+    return full_param_str
 
 def main():
     stats = {}
@@ -51,7 +48,9 @@ def main():
         cfg = yaml.safe_load(cfg_path.read_text()) or {}
         env_name = cfg.get("env_id", "UNKNOWN_ENV")
         vla_load_path = cfg.get("vla_load_path", "")
-        params, seed = extract_params_from_vla_load_path(vla_load_path)
+        params = extract_params_from_vla_load_path(vla_load_path)
+        
+        seed = cfg.get("seed")
         if seed is None:
             print(f"[WARN] 无法解析 seed: {vla_load_path}, run={run_name}")
             continue  # 或者设置默认值 seed = "unknown"
@@ -134,6 +133,8 @@ def generate_statistics_tables(stats_file: Path):
             task_name = f"{env_id}-{split}"
             all_tasks.add(task_name)
 
+            ALLOWED_SEEDS = {0}
+            
             for params, seeds_data in split_data.items():
                 # 允许 params 为 ""（例如路径没解析出参数）
                 all_params.add(params)
@@ -147,6 +148,10 @@ def generate_statistics_tables(stats_file: Path):
                     for seed_key, metrics in seeds_data.items():
                         if not isinstance(metrics, dict):
                             continue
+                        
+                        if seed_key not in ALLOWED_SEEDS:
+                            continue
+    
 
                         for k, v in metrics.items():
                             # boolean → 0/1
@@ -167,15 +172,39 @@ def generate_statistics_tables(stats_file: Path):
     all_tasks = sorted(list(all_tasks))
 
     # 计算“每个参数的平均 success”（跨 task 平均）——若无数据则留空字符串
-    param_avg_success = {}
+    param_avg_success_train = {}
+    param_avg_success_test = {}
+    param_avg_success_all = {}
+
     for param in all_params:
-        success_values = []
+        train_vals = []
+        test_vals = []
+        all_vals = []
+
         for task in all_tasks:
             metrics = data.get(param, {}).get(task, {})
             val = metrics.get("success")
-            if isinstance(val, (int, float)):
-                success_values.append(val)
-        param_avg_success[param] = (sum(success_values) / len(success_values)) if success_values else ""
+
+            if not isinstance(val, (int, float)):
+                continue
+
+            all_vals.append(val)
+
+            if task.endswith("-train"):
+                train_vals.append(val)
+            elif task.endswith("-test"):
+                test_vals.append(val)
+
+        param_avg_success_train[param] = (
+            sum(train_vals) / len(train_vals) if train_vals else ""
+        )
+        param_avg_success_test[param] = (
+            sum(test_vals) / len(test_vals) if test_vals else ""
+        )
+        param_avg_success_all[param] = (
+            sum(all_vals) / len(all_vals) if all_vals else ""
+        )
+
 
     metrics = ["consecutive_grasp", "is_src_obj_grasped", "success"]
 
@@ -184,7 +213,11 @@ def generate_statistics_tables(stats_file: Path):
         csv_path = base_dir / f"statistics_{metric}.csv"
         with open(csv_path, "w", encoding="utf-8") as f:
             if all_tasks:
-                header = ["params"] + all_tasks + ["avg_success_rate"]
+                header = (
+                    ["params"]
+                    + all_tasks
+                    + ["avg_success_train", "avg_success_test", "avg_success_all"]
+                )
             else:
                 header = ["params", "avg_success_rate"]  # 没有任务列时的最小表头
             f.write(",".join(header) + "\n")
@@ -200,8 +233,13 @@ def generate_statistics_tables(stats_file: Path):
                     row.append(str(val) if isinstance(val, (int, float)) else ("" if val is None else str(val)))
 
                 # 追加平均 success（不依赖当前 metric；根据上面 param_avg_success）
-                avg_success = param_avg_success.get(param, "")
-                row.append(str(avg_success) if isinstance(avg_success, (int, float)) else "")
+                avg_train = param_avg_success_train.get(param, "")
+                avg_test = param_avg_success_test.get(param, "")
+                avg_all = param_avg_success_all.get(param, "")
+
+                row.append(str(avg_train) if isinstance(avg_train, (int, float)) else "")
+                row.append(str(avg_test) if isinstance(avg_test, (int, float)) else "")
+                row.append(str(avg_all) if isinstance(avg_all, (int, float)) else "")
 
                 f.write(",".join(row) + "\n")
 
