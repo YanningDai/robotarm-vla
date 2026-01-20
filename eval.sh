@@ -10,7 +10,7 @@
 #SBATCH --constraint=a100
 #SBATCH --cpus-per-gpu=10
 #SBATCH --mem=80G
-#SBATCH --account=conf-cvpr-2025.11.21-schmidhj
+#SBATCH --account=conf-icml-2026.01.29-schmidhj
 
 # 接收参数：checkpoint 路径
 vla_load_path=${1}

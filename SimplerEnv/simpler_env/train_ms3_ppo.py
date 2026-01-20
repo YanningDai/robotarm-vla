@@ -48,7 +48,7 @@ class Args:
     steps_max: int = 2000000
     steps_vh: int = 0  # episodes
     interval_eval: int = 10
-    interval_save: int = 40
+    interval_save: int = 50
 
     # buffer
     buffer_inferbatch: int = 32
@@ -76,9 +76,46 @@ class Args:
     alg_ppo_epoch: int = 1
     alg_entropy_coef: float = 0.0
     
-    trust_type: Literal["clip", "rollback", "truly", "trust_region"] = "clip"
-    rollback_alpha: float = 0.005
-    trust_region_delta: float = 0.1
+    # rollback_alpha: float = 0.005
+    # trust_region_delta: float = 0.1
+    
+    cliprange_high: float = 0.28
+    """the clip range (high)"""
+    cliprange_low: float = 0.2
+    """the clip range (low)"""
+    cliprange: float = 0.2
+    """Symmetric PPO clip range"""
+    cliprange_dual: float = 3.0
+    """Dual-clip coefficient (only used in dual_clip / dynamic_clip)"""
+    
+    # ===== Trust Region / Clipping variants =====
+    
+    trust_type: str = "clip"
+    """
+    Trust-region / clipping type.
+    Options:
+      - clip        (standard PPO)
+      - dual_clip   (dual-clip PPO)
+      - clip_high   (asymmetric clip)
+      - dynamic_clip
+      - clip_cov
+      - soft_gated  (SAPO-style soft gate)
+      - trgc        (trust-region via LambertW)
+      - trgppo      
+    """
+
+    clip_cov_ratio: float = 0.0002
+    """Fraction of tokens to suppress based on covariance"""
+    clip_cov_lb: float = 1.0
+    """Lower bound of covariance window"""
+    clip_cov_ub: float = 5.0
+    """Upper bound of covariance window"""
+    tau_pos: float = 1.0
+    """Temperature for positive-advantage tokens (soft gate)"""
+    tau_neg: float = 1.05
+    """Temperature for negative-advantage tokens (soft gate)"""
+    delta: float = 0.07
+    """Trust-region radius for TRGC and TRGPPO (LambertW-based)"""
     
     # other
     wandb: bool = True

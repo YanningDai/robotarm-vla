@@ -1,8 +1,7 @@
-params,PutOnPlateInScene25Carrot-v1-test,PutOnPlateInScene25Carrot-v1-train,PutOnPlateInScene25EEPose-v1-test,PutOnPlateInScene25Instruct-v1-test,PutOnPlateInScene25MultiCarrot-v1-test,PutOnPlateInScene25MultiCarrot-v1-train,PutOnPlateInScene25MultiPlate-v1-test,PutOnPlateInScene25MultiPlate-v1-train,PutOnPlateInScene25Plate-v1-test,PutOnPlateInScene25Position-v1-test,PutOnPlateInScene25PositionChangeTo-v1-test,PutOnPlateInScene25VisionImage-v1-test,PutOnPlateInScene25VisionTexture03-v1-test,PutOnPlateInScene25VisionTexture05-v1-test,PutOnPlateInScene25VisionWhole03-v1-test,PutOnPlateInScene25VisionWhole05-v1-test,avg_success_rate
-rollback_alpha=0.0;trust_region_delta=0.0,0.71875,0.890625,0.796875,0.875,0.578125,0.8125,0.5625,0.828125,0.78125,0.71875,0.78125,0.859375,0.8125,0.609375,0.765625,0.625,0.7509765625
-rollback_alpha=0.1;trust_region_delta=0.1,0.78125,0.984375,0.8125,0.84375,0.65625,0.8125,0.640625,0.828125,0.78125,0.78125,0.734375,0.890625,0.75,0.625,0.828125,0.6875,0.77734375
-rollback_alpha=0.5;trust_region_delta=0.1,0.765625,0.828125,0.78125,0.890625,0.53125,0.734375,0.640625,0.859375,0.859375,0.828125,0.765625,0.8125,0.828125,0.671875,0.796875,0.625,0.763671875
-rollback_alpha=0.5;trust_region_delta=0.5,0.703125,0.90625,0.78125,0.90625,0.71875,0.75,0.5,0.859375,0.8125,0.8125,0.875,0.921875,0.828125,0.625,0.90625,0.6875,0.787109375
-rollback_alpha=1.0;trust_region_delta=0.05,0.765625,0.90625,0.828125,0.84375,0.671875,0.796875,0.515625,0.828125,0.796875,0.796875,0.75,0.875,0.796875,0.6875,0.8125,0.71875,0.7744140625
-rollback_alpha=1.0;trust_region_delta=0.5,0.71875,0.890625,0.8125,0.796875,0.625,0.703125,0.46875,0.796875,0.71875,0.71875,0.8125,0.890625,0.796875,0.609375,0.828125,0.71875,0.744140625
-rollback_alpha=2.0;trust_region_delta=0.1,0.78125,0.875,0.796875,0.796875,0.59375,0.6875,0.5625,0.765625,0.78125,0.828125,0.796875,0.875,0.828125,0.609375,0.828125,0.6875,0.755859375
+params,PutOnPlateInScene25Carrot-v1-test,PutOnPlateInScene25Carrot-v1-train,PutOnPlateInScene25VisionImage-v1-test,PutOnPlateInScene25VisionTexture03-v1-test,PutOnPlateInScene25VisionTexture05-v1-test,PutOnPlateInScene25VisionWhole03-v1-test,PutOnPlateInScene25VisionWhole05-v1-test,avg_success_rate
+ppo;clip;para1=0.1;para2=0.0;para3=0,0.703125,0.859375,0.859375,0.78125,0.625,0.765625,0.65625,0.75
+ppo;clip;para1=0.2;para2=0.0;para3=0,0.671875,0.8125,0.859375,0.734375,0.609375,0.78125,0.703125,0.7388392857142857
+ppo;clip_cov;para1=0.0002;para2=1.0;para3=5.0,0.6875,0.921875,0.890625,0.734375,0.515625,0.796875,0.609375,0.7366071428571429
+ppo;clip_high;para1=0.2;para2=0.28;para3=0,0.640625,0.828125,0.828125,0.796875,0.5625,0.828125,0.515625,0.7142857142857143
+ppo;clip_high;para1=0.329;para2=0.5;para3=0,0.671875,0.859375,0.859375,0.765625,0.578125,0.859375,0.609375,0.7433035714285714
+ppo;clip_high;para1=0.329;para2=0.6;para3=0,0.6875,0.921875,0.78125,0.796875,0.640625,0.796875,0.59375,0.7455357142857143

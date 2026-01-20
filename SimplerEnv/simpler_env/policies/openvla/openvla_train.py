@@ -1,11 +1,14 @@
 import json
 from collections import defaultdict
+import os
+import sys
 from pathlib import Path
 
 import numpy as np
 import torch
 from torch import nn
 from torch.optim import AdamW
+from scipy.special import lambertw
 from peft import LoraConfig, get_peft_model, PeftModel
 from tqdm import tqdm
 from transformers import AutoTokenizer, BatchFeature
@@ -270,8 +273,6 @@ class OpenVLAPPO:
         self.tpdv = self.policy.tpdv
         self.tpdv_vn = self.policy.tpdv_vn
         self.trust_type = self.args.trust_type
-        self.rollback_alpha = self.args.rollback_alpha
-        self.trust_region_delta = self.args.trust_region_delta
 
     def train_ppo_step(self, idx, total, batch):
         obs_image, instruct, actions, value_preds, returns, masks, old_logprob, advantages = batch
@@ -285,65 +286,157 @@ class OpenVLAPPO:
         old_logprob = torch.tensor(old_logprob).to(**self.tpdv)
         advantages = torch.tensor(advantages).to(**self.tpdv)
         returns_norm = returns.to(**self.tpdv)
-
+        mb_advantage = advantages
+        mb_logps = old_logprob
         # ---------------------- Policy loss ----------------------
         logprob, entropy, values = self.policy.evaluate_actions(obs, actions)
-
-        ratio = torch.exp(logprob - old_logprob)
-        surr1 = ratio * advantages
+        new_logps = logprob
+        logprobs_diff = new_logps - mb_logps
+        ratio = torch.exp(logprobs_diff)
+        surr1 = ratio * mb_advantage
         approx_kl = None
         
-        # 根据 trust_type 计算不同的 surr2
-        if self.trust_type == "clip":
-            surr2 = torch.clamp(ratio, 1 - self.ppo_clip, 1 + self.ppo_clip) * advantages
-            policy_loss = -torch.min(surr1, surr2).sum(dim=-1, keepdim=True).mean()
-            
-        elif self.trust_type == "rollback":
-            ratio_rollback_low = -self.rollback_alpha * ratio.clone() + (1.0 + self.rollback_alpha) * (1 - self.ppo_clip)
-            ratio_rollback = torch.where(ratio <= 1 - self.ppo_clip, ratio_rollback_low, ratio.clone())
-            
-            ratio_rollback_high = -self.rollback_alpha * ratio.clone() + (1 + self.rollback_alpha) * (1 + self.ppo_clip)
-            ratio_rollback = torch.where(ratio >= 1 + self.ppo_clip, ratio_rollback_high, ratio_rollback.clone())
-            
-            surr2 = ratio_rollback * advantages
-            policy_loss = -torch.min(surr1, surr2).sum(dim=-1, keepdim=True).mean()
-            
-        elif self.trust_type == "trust_region":
-            with torch.no_grad():
-                approx_log_ratio = (old_logprob - logprob).clamp(-40.0, 40.0)
-                approx_kl = torch.expm1(approx_log_ratio) - approx_log_ratio
-            ratio_trust_region = torch.where(approx_kl >= self.trust_region_delta, 1.0, ratio.clone())
-            
-            surr2 = ratio_trust_region * advantages
-            policy_loss = -torch.min(surr1, surr2).sum(dim=-1, keepdim=True).mean()
-            
-        elif self.trust_type == "truly":
-            approx_log_ratio = (old_logprob - logprob).clamp(-40.0, 40.0)
-            approx_kl = torch.expm1(approx_log_ratio) - approx_log_ratio
-            
-            with torch.no_grad():
-                cond_truly = torch.logical_and(
-                    approx_kl >= self.trust_region_delta,
-                    ratio * advantages >= advantages
-                )
-            
-            # penalty = self.rollback_alpha * torch.where(
-            #     cond_truly,
-            #     approx_kl, # 这部分更新需要梯度，所以这个approx_kl不能用detach
-            #     self.trust_region_delta
-            # )   
-            
-            # policy_loss = -(surr1 - penalty).sum(dim=-1, keepdim=True).mean()
+        # =========================================================
+        # Policy loss (trust region variants)
+        # =========================================================
 
-            penalty = self.rollback_alpha * torch.where(
-                cond_truly,
-                approx_kl,
-                -surr1
-            )   
-            policy_loss = penalty.sum(dim=-1, keepdim=True).mean()
+        pg_losses = -mb_advantage * ratio
+
+        if self.args.trust_type == "clip":
+            pg_losses2 = -mb_advantage * torch.clamp(
+                ratio, 1.0 - self.args.cliprange, 1.0 + self.args.cliprange
+            )
+            pg_loss = torch.max(pg_losses, pg_losses2)
+
+        elif self.args.trust_type == "dual_clip":
+            pg_losses2 = -mb_advantage * torch.clamp(
+                ratio, 1.0 - self.args.cliprange, 1.0 + self.args.cliprange
+            )
+            pg_losses_dual = -mb_advantage * self.args.cliprange_dual
+            pg_loss = torch.min(torch.max(pg_losses, pg_losses2), pg_losses_dual)
+
+        elif self.args.trust_type == "clip_high":
+            pg_losses2 = -mb_advantage * torch.clamp(
+                ratio,
+                1.0 - self.args.cliprange_low,
+                1.0 + self.args.cliprange_high,
+            )
+            pg_loss = torch.max(pg_losses, pg_losses2)
+
+        elif self.args.trust_type == "dynamic_clip":
+            # mb_logps: old logps
+            mb_ps = torch.exp(mb_logps)
+
+            low_c_ref = torch.where(mb_ps != 0, 4 * self.args.cliprange_low / (mb_ps), 0)
+            low_c_ref = 1 - low_c_ref
+            low_c_ref = low_c_ref * (low_c_ref >= 0)
+                                    
+            high_c_ref = 4 * self.args.cliprange_high / mb_ps
+            high_c_ref = torch.where(mb_ps != 0, 1 + 4 * self.args.cliprange_high / mb_ps, float("inf"))
+
+            low = (1 + torch.sqrt(low_c_ref)) / 2
+            high = (1 + torch.sqrt(high_c_ref)) / 2
+            
+            clip_ratio_c = max(self.args.cliprange_dual, 10)
+
+            dynamic_cliprange_low = low
+            dynamic_cliprange_high = torch.clamp(high, 0, clip_ratio_c)
+
+            pg_losses2 = -mb_advantage * torch.clamp(
+                ratio, 1.0 - dynamic_cliprange_low, 1.0 + dynamic_cliprange_high
+            )
+            pg_loss = torch.max(pg_losses, pg_losses2)
+
+        elif self.args.trust_type == "clip_cov":
+            clip_cov_ratio = self.args.clip_cov_ratio   # e.g. 0.002
+            clip_cov_lb = self.args.clip_cov_lb         # e.g. 1.0
+            clip_cov_ub = self.args.clip_cov_ub         # e.g. 5.0
+            corr = torch.ones_like(mb_advantage)
+            clip_by_origin = (
+                (ratio < 1.0 - self.args.cliprange) |
+                (ratio > 1.0 + self.args.cliprange)
+            )
+            cov_all = (mb_advantage - mb_advantage.mean()) * (
+                logprobs_diff - logprobs_diff.mean()
+            )
+            cov_all[clip_by_origin] = -torch.inf
+            clip_num = max(int(clip_cov_ratio * mb_advantage.numel()), 1)
+            top_k_idx = (cov_all < clip_cov_ub) & (cov_all > clip_cov_lb)
+            top_k_idx = torch.nonzero(top_k_idx).squeeze(-1)
+            
+            if len(top_k_idx) > 0:
+                perm = torch.randperm(len(top_k_idx), device=top_k_idx.device)
+                top_k_idx = top_k_idx[perm[: min(clip_num, len(top_k_idx))]]
+            else:
+                top_k_idx = torch.empty(0, device=cov_all.device, dtype=torch.long)
+            
+            corr[top_k_idx] = 0
+
+            pg_losses2 = -mb_advantage * torch.clamp(
+                ratio, 1.0 - self.args.cliprange, 1.0 + self.args.cliprange
+            )
+            pg_loss = torch.max(pg_losses, pg_losses2) * corr
+
+        elif self.args.trust_type == "soft_gated":
+            tau_pos = self.args.tau_pos      # e.g. 1.0
+            tau_neg = self.args.tau_neg      # e.g. 1.05
+
+            coef1 = ratio               # 对应截图里的 coef1
+
+            gate_pos = torch.sigmoid(tau_pos * (coef1 - 1.0))
+            gate_neg = torch.sigmoid(tau_neg * (coef1 - 1.0))
+
+            soft_gate = torch.where(mb_advantage > 0, gate_pos, gate_neg)
+
+            pg_loss = -soft_gate * mb_advantage * ratio
+
+        elif self.args.trust_type == "trgppo":
+            delta = self.args.delta
+            ROOT = Path(__file__).resolve().parents[2]
+            if str(ROOT) not in sys.path:
+                sys.path.append(str(ROOT))
+                sys.path.append(str(ROOT)+"/utils")
+            try:
+                from utils.KL2Clip_discrete import KL2Clip
+                print("Successfully imported KL2Clip")
+            except ImportError as e:
+                print(f"Failed to import KL2Clip: {e}")
+            kl2clip = KL2Clip()
+            old_per_token_ps = torch.exp(mb_logps)
+            old_per_token_ps_array = old_per_token_ps.detach().float().cpu().view(-1).numpy()
+            results = kl2clip(old_per_token_ps_array, delta, decimal_places=4)
+            kl2clip_low = torch.from_numpy(results.min.reshape(old_per_token_ps.shape)).to(ratio.device, ratio.dtype)
+            kl2clip_high = torch.from_numpy(results.max.reshape(old_per_token_ps.shape)).to(ratio.device, ratio.dtype)
+            pg_loss = -mb_advantage * torch.clamp(ratio, kl2clip_low, kl2clip_high)
+            
+        elif self.args.trust_type == "trgc":
+            delta = self.args.delta
+            
+            z = -np.exp(-(delta + 1.0))
+            c_low = float(-lambertw(z, k=0).real)
+            c_high = float(-lambertw(z, k=-1).real)
+            
+            # temp
+            if abs(delta - 1.0) < 1e-3:
+                c_low, c_high = 1.0, 0.07
+            elif abs(delta - 0.31) < 1e-3:
+                c_low, c_high = 0.31, 0.45
+            elif abs(delta - 0.284) < 1e-3:
+                c_low, c_high = 0.284, 0.539
+            else:
+                raise ValueError(f"Unsupported delta: {delta}")
+    
+            pg_losses2 = -mb_advantage * torch.clamp(
+                ratio,
+                1.0 - c_low,
+                1.0 + c_high,
+            )
+            pg_loss = torch.max(pg_losses, pg_losses2)
             
         else:
-            raise ValueError(f"Unknown trust_type: {self.trust_type}")
+            raise ValueError(f"Unknown trust_type: {self.args.trust_type}")
+
+        policy_loss = pg_loss.sum(dim=-1).mean()
         
         # ----------------------- Value loss -----------------------
         value_pred_clipped = value_preds + (values - value_preds).clamp(-self.ppo_clip, self.ppo_clip)
@@ -382,14 +475,14 @@ class OpenVLAPPO:
             entropy_loss=entropy_loss.item(),
             ratio=ratio.mean().item(),
             ratio_median=ratio.median().item(),
-            ratio_2=(logprob - old_logprob).mean().exp().item(),
+            ratio_2=(mb_logps - old_logprob).mean().exp().item(),
 
             value_clip_ratio=value_clip_ratio.item(),
             value_old_mean=value_preds.mean().item(),
             values_mean=values.mean().item(),
             returns_mean=returns.mean().item(),
             returns_norm_mean=returns_norm.mean().item(),
-            logprob_mean=logprob.mean().item(),
+            logprob_mean=mb_logps.mean().item(),
             logprob_old_mean=old_logprob.mean().item(),
         )
         

@@ -11,60 +11,54 @@ from pathlib import Path
 
 # ============================================================
 # 训练任务配置
-# 格式: (alg_name, trust_type, rollback_alpha, trust_region_delta, seed, vla_load_path)
+# 格式: (alg_name, trust_type, para1, para2, para3, seed, vla_load_path)
 # vla_load_path 为空字符串 "" 表示不使用 (训练新模型)
 # ============================================================
 TRAIN_EXPERIMENTS = [
-    # PPO with clip (baseline)
-    # ("ppo", "clip", 0.0, 0.0, 0, ""),
+    #PPO with rollback
+    # ("ppo", "clip", 0.1, 0.0, 0, 0, ""),
+    # ("ppo", "clip", 0.2, 0.0, 0, 0, ""),
+    # ("ppo", "clip", 0.3, 0.0, 0, 0, ""),
+    # ("ppo", "clip", 0.4, 0.0, 0, 0, ""),
+    # ("ppo", "clip", 0.5, 0.0, 0, 0, ""),
+    # ("ppo", "clip", 0.329, 0.0, 0, 0, ""),
+    # ("ppo", "clip", 0.422, 0.0, 0, 0, ""),
     
-    # PPO with rollback
-    # ("ppo", "rollback", 0.001, 0.0, 0, ""),
-    # ("ppo", "rollback", 0.005, 0.0, 0, ""),
-    # ("ppo", "rollback", 0.01, 0.0, 0, ""),
-    # ("ppo", "rollback", 0.05, 0.0, 0, ""),
-    # ("ppo", "rollback", 0.1, 0.0, 0, ""),
+    # ("ppo", "dual_clip", 0.2, 10.0, 0, 0, ""),
+    # ("ppo", "dual_clip", 0.2, 20.0, 0, 0, ""),
+    
+    # ("ppo", "clip_high", 0.2, 0.28, 0, 0, ""),
+    # ("ppo", "clip_high", 0.329, 0.5, 0, 0, ""),
+    # ("ppo", "clip_high", 0.329, 0.6, 0, 0, ""),
+    
+    # ("ppo", "dynamic_clip", 0.2, 0.28, 3.0, 0, ""),
+    
+    # ("ppo", "dynamic_clip", 0.2, 0.35, 3.0, 0, ""),
+    # ("ppo", "dynamic_clip", 0.2, 0.30, 3.0, 0, ""),
+    # ("ppo", "dynamic_clip", 0.2, 0.25, 3.0, 0, ""),
+    
+    # ("ppo", "clip_cov", 0.0002, 1.0, 5.0, 0, ""),
+    # ("ppo", "soft_gated", 1.0, 1.05, 0, 0, ""),
+    ("ppo", "soft_gated", 1.0, 1.0, 0, 0, ""),
+    ("ppo", "soft_gated", 0.5, 0.5, 0, 0, ""),
+    ("ppo", "soft_gated", 1.0, 1.1, 0, 0, ""),
+    
+    # ("ppo", "trgppo", 0.07, 0.0, 0, 0, ""),
+    # ("ppo", "trgppo", 0.06, 0.0, 0, 0, ""),
+    # ("ppo", "trgppo", 0.05, 0.0, 0, 0, ""),
+    # ("ppo", "trgppo", 0.08, 0.0, 0, 0, ""),
+    # ("ppo", "trgppo", 0.09, 0.0, 0, 0, ""),
+    
+    # ("ppo", "trgc", 0.07, 0.0, 0, 0, ""),
+    # ("ppo", "trgc", 0.08, 0.0, 0, 0, ""),
+    # ("ppo", "trgc", 0.06, 0.0, 0, 0, ""),
+    # ("ppo", "trgc", 0.1, 0.0, 0, 0, ""),
+    # ("ppo", "trgc", 0.03, 0.0, 0, 0, ""),
 
-    # ("ppo", "rollback", 0.5, 0.0, 0, ""),
-    # ("ppo", "rollback", 1.0, 0.0, 0, ""),
-    # ("ppo", "rollback", 5.0, 0.0, 0, ""),
-    # ("ppo", "rollback", 10.0, 0.0, 0, ""),
-    # ("ppo", "rollback", 20.0, 0.0, 0, ""),
-    # ("ppo", "rollback", 50.0, 0.0, 0, ""),
+    # ("ppo", "trgc", 1.0, 0.07, 0, 0, ""),
+    # ("ppo", "trgc", 0.31, 0.45, 0, 0, ""),
+    # ("ppo", "trgc", 0.284, 0.539, 0, 0, ""),
     
-    # PPO with trust_region
-    # ("ppo", "trust_region", 0.0, 0.0001, 0, ""),
-    # ("ppo", "trust_region", 0.0, 0.001, 0, ""),
-    # ("ppo", "trust_region", 0.0, 0.01, 0, ""),
-    # ("ppo", "trust_region", 0.0, 0.1, 0, ""),
-    # ("ppo", "trust_region", 0.0, 0.5, 0, ""),
-    # ("ppo", "trust_region", 0.0, 1.0, 0, ""),
-    # ("ppo", "trust_region", 0.0, 5.0, 0, ""),
-    # ("ppo", "trust_region", 0.0, 10.0, 0, ""),
-    
-    # PPO with truly
-    # ("ppo", "truly", 0.5, 0.1, 0, ""),
-    # ("ppo", "truly", 0.5, 0.01, 0, ""),
-    # ("ppo", "truly", 1.0, 0.01, 0, ""),
-    # ("ppo", "truly", 2.0, 0.01, 0, ""),
-    # ("ppo", "truly", 0.5, 0.05, 0, ""),
-    # ("ppo", "truly", 1.0, 0.05, 0, ""),
-    # ("ppo", "truly", 2.0, 0.05, 0, ""),
-    # ("ppo", "truly", 0.1, 0.1, 0, ""),
-    
-    
-    # ("ppo", "truly", 0.1, 0.5, 0, ""),
-    # ("ppo", "truly", 0.5, 0.5, 0, ""),
-    # ("ppo", "truly", 1.0, 0.5, 0, ""),
-    # ("ppo", "truly", 2.0, 0.5, 0, ""),
-    # ("ppo", "truly", 2.0, 0.1, 0, ""),
-    
-    
-    # Multiple seeds
-    # ("ppo", "clip", 0.0, 0.0, 1, ""),
-    
-    # GRPO (uncomment if needed)
-    # ("grpo", "clip", 0.0, 0.0, 0, ""),
     
     # Resume examples
     # ("ppo", "clip", 0.0, 0.0, 0, "../SimplerEnv/outputs/ppo,clip,rollback_alpha=0.0,trust_region_delta=0.0,seed=0/steps_0239"),
@@ -83,21 +77,35 @@ TRAIN_EXPERIMENTS = [
 # ============================================================
 EVAL_CHECKPOINTS = [
     
-    "../SimplerEnv/outputs/resume_ppo,clip,rollback_alpha=0.0,trust_region_delta=0.0,seed=0/steps_0159",  # standard ppo
-    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=0.1,trust_region_delta=0.1,seed=0/steps_0159",
-    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=0.5,trust_region_delta=0.1,seed=0/steps_0159",
-    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=0.5,trust_region_delta=0.5,seed=0/steps_0159",
-    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=1.0,trust_region_delta=0.05,seed=0/steps_0159",
-    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=1.0,trust_region_delta=0.5,seed=0/steps_0159",
-    "../SimplerEnv/outputs/resume_ppo,truly,rollback_alpha=2.0,trust_region_delta=0.1,seed=0/steps_0159",
+    # "../SimplerEnv/outputs/ppo,clip_cov,para1=0.0002,para2=1.0,para3=5.0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip_high,para1=0.2,para2=0.28,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip_high,para1=0.329,para2=0.5,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip_high,para1=0.329,para2=0.6,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.1,para2=0.0,para3=0,seed=0/steps_0249",
+    # "../SimplerEnv/outputs/ppo,clip,para1=0.2,para2=0.0,para3=0,seed=0/steps_0249",
+    
+    "../SimplerEnv/outputs/ppo,clip,para1=0.3,para2=0.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,clip,para1=0.4,para2=0.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,clip,para1=0.5,para2=0.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,clip,para1=0.329,para2=0.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,clip,para1=0.422,para2=0.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,dynamic_clip,para1=0.2,para2=0.28,para3=3.0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.1,para2=0.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.03,para2=0.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.06,para2=0.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.07,para2=0.0,para3=0,seed=0/steps_0249",
+    "../SimplerEnv/outputs/ppo,trgc,para1=0.08,para2=0.0,para3=0,seed=0/steps_0249",
 ]
 # ============================================================
 
 
-def submit_train_job(alg_name, trust_type, rollback_alpha, trust_region_delta, seed, vla_load_path=""):
+
+
+
+def submit_train_job(alg_name, trust_type, para1, para2, para3, seed, vla_load_path=""):
     """提交一个训练任务"""
     
-    base_job_name = f"{alg_name},{trust_type},rollback_alpha={rollback_alpha},trust_region_delta={trust_region_delta},seed={seed}"
+    base_job_name = f"{alg_name},{trust_type},para1={para1},para2={para2},para3={para3},seed={seed}"
 
     # 如果有 vla_load_path（resume），在前面加 "resume" 前缀
     if vla_load_path:
@@ -111,10 +119,11 @@ def submit_train_job(alg_name, trust_type, rollback_alpha, trust_region_delta, s
         "rl.sh",
         alg_name,
         trust_type,
-        str(rollback_alpha),
-        str(trust_region_delta),
+        str(para1),
+        str(para2),
+        str(para3),
         str(seed),
-        vla_load_path  # 第 6 个参数
+        vla_load_path  # 第 7 个参数
     ]
     
     print(f"Submitting training: {job_name}")
@@ -170,13 +179,13 @@ def main():
         for i, exp in enumerate(TRAIN_EXPERIMENTS, 1):
             # 支持 5 元组（向后兼容）和 6 元组格式
             if len(exp) == 5:
-                alg_name, trust_type, rollback_alpha, trust_region_delta, seed = exp
+                alg_name, trust_type, para1, para2, para3, seed = exp
                 vla_load_path = ""
             else:
-                alg_name, trust_type, rollback_alpha, trust_region_delta, seed, vla_load_path = exp
+                alg_name, trust_type, para1, para2, para3, seed, vla_load_path = exp
 
             print(f"[Train {i}/{len(TRAIN_EXPERIMENTS)}]", end=" ")
-            job_id = submit_train_job(alg_name, trust_type, rollback_alpha, trust_region_delta, seed, vla_load_path)
+            job_id = submit_train_job(alg_name, trust_type, para1, para2, para3, seed, vla_load_path)
             if job_id:
                 all_jobs.append(("train", job_id))
             time.sleep(0.5)

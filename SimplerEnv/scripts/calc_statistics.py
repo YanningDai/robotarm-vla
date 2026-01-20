@@ -2,10 +2,12 @@ from pathlib import Path
 import yaml
 from datetime import datetime
 
+# 这个代码是从wandb文件夹的offline-run里提取eval的数据
+# 注意，进行之前要把不需要的wandb记录删掉
+
 def extract_params_from_vla_load_path(vla_load_path):
-    """从 vla_load_path 中提取 rollback_alpha, trust_region_delta, seed"""
-    # 路径格式: ../SimplerEnv/outputs/ppo,truly,rollback_alpha=1.0,trust_region_delta=0.05,seed=0/steps_0239
-    # 需要提取: ppo,truly,rollback_alpha=1.0,trust_region_delta=0.05,seed=0
+    # 路径格式: ../SimplerEnv/outputs/ppo,clip_cov,para1=0.0002,para2=1.0,para3=5.0,seed=0/steps_0249
+    # 需要提取: ppo,clip_cov,para1=0.0002,para2=1.0,para3=5.0,seed=0
     
     path_parts = vla_load_path.rstrip("/").split("/")
     if len(path_parts) < 2:
@@ -14,19 +16,23 @@ def extract_params_from_vla_load_path(vla_load_path):
     params_str = path_parts[-2]  # 倒数第二个就是参数部分
     parts = params_str.split(",")
     
+    method_parts = parts[:2]
     params = {}
     seed = None
     
     for part in parts:
-        if part.startswith("rollback_alpha="):
-            params["rollback_alpha"] = part.split("=")[1]
-        elif part.startswith("trust_region_delta="):
-            params["trust_region_delta"] = part.split("=")[1]
+        if part.startswith("para1="):
+            params["para1"] = part.split("=")[1]
+        elif part.startswith("para2="):
+            params["para2"] = part.split("=")[1]
+        elif part.startswith("para3="):
+            params["para3"] = part.split("=")[1]
         elif part.startswith("seed="):
             seed = part.split("=")[1]
     
-    param_str = ",".join([f"{k}={v}" for k, v in sorted(params.items())])
-    return param_str if param_str else "", seed
+    param_items = [f"{k}={v}" for k, v in sorted(params.items())]
+    full_param_str = ",".join(method_parts + param_items)
+    return full_param_str, seed
 
 def main():
     stats = {}
@@ -46,6 +52,9 @@ def main():
         env_name = cfg.get("env_id", "UNKNOWN_ENV")
         vla_load_path = cfg.get("vla_load_path", "")
         params, seed = extract_params_from_vla_load_path(vla_load_path)
+        if seed is None:
+            print(f"[WARN] 无法解析 seed: {vla_load_path}, run={run_name}")
+            continue  # 或者设置默认值 seed = "unknown"
         run_name = run.name
 
         found_any = False  # 本 run 是否读到任何 stats
@@ -102,7 +111,6 @@ def generate_statistics_tables(stats_file: Path):
         print(f"[WARN] stats 文件不存在：{stats_file}")
         return
 
-    # 允许空文件；解析失败时当作空 dict
     try:
         stats_data = yaml.safe_load(stats_file.read_text()) or {}
     except Exception as e:
@@ -132,27 +140,28 @@ def generate_statistics_tables(stats_file: Path):
                 data.setdefault(params, {})
                 data[params].setdefault(task_name, {})
 
-                # --- 这里的策略是：只用 seed "0"；如果想换成“若无0则取任意一个seed”或“对所有seed求平均”，看注释 ---
-                if isinstance(seeds_data, dict) and "0" in seeds_data and isinstance(seeds_data["0"], dict):
-                    data[params][task_name] = seeds_data["0"]
-                else:
-                    # 1) 若无 seed "0"，保持留空（默认策略）
-                    pass
+                # 对所有 seed 的 metric求平均：
+                if isinstance(seeds_data, dict) and seeds_data:
+                    metric_values = {}
 
-                    # 2) 【可选策略A】若无 seed "0"，取任意一个 seed：
-                    # if isinstance(seeds_data, dict) and seeds_data:
-                    #     first_seed_key = sorted(seeds_data.keys(), key=lambda x: (str(x))) [0]
-                    #     if isinstance(seeds_data[first_seed_key], dict):
-                    #         data[params][task_name] = seeds_data[first_seed_key]
+                    for seed_key, metrics in seeds_data.items():
+                        if not isinstance(metrics, dict):
+                            continue
 
-                    # 3) 【可选策略B】对所有 seed 的某 metric（比如 success）求平均：
-                    # if isinstance(seeds_data, dict) and seeds_data:
-                    #     keys = [k for k in seeds_data.keys() if isinstance(seeds_data[k], dict)]
-                    #     if keys:
-                    #         # 以 success 为例
-                    #         vals = [seeds_data[k].get("success") for k in keys if isinstance(seeds_data[k].get("success"), (int, float))]
-                    #         if vals:
-                    #             data[params][task_name] = dict(success=sum(vals)/len(vals))
+                        for k, v in metrics.items():
+                            # boolean → 0/1
+                            if isinstance(v, bool):
+                                metric_values.setdefault(k, []).append(1.0 if v else 0.0)
+                            # numeric metric（如果以后你加了 success_rate 之类）
+                            elif isinstance(v, (int, float)):
+                                metric_values.setdefault(k, []).append(float(v))
+
+                    averaged_metrics = {
+                        k: (sum(vals) / len(vals)) for k, vals in metric_values.items() if vals
+                    }
+
+                    if averaged_metrics:
+                        data[params][task_name] = averaged_metrics
 
     all_params = sorted(list(all_params))
     all_tasks = sorted(list(all_tasks))
@@ -170,7 +179,6 @@ def generate_statistics_tables(stats_file: Path):
 
     metrics = ["consecutive_grasp", "is_src_obj_grasped", "success"]
 
-    # 如果 task 为空，我们也仍然写 CSV，只包含 "params" 和 "avg_success_rate" 表头
     base_dir = stats_file.parent
     for metric in metrics:
         csv_path = base_dir / f"statistics_{metric}.csv"
@@ -181,13 +189,11 @@ def generate_statistics_tables(stats_file: Path):
                 header = ["params", "avg_success_rate"]  # 没有任务列时的最小表头
             f.write(",".join(header) + "\n")
 
-            # 如果没有任何 params，也不写数据行；只保留表头即可
             for param in all_params:
                 # params 里的逗号 -> 分号，免得和 CSV 分隔符冲突
                 param_display = (param or "").replace(",", ";")
                 row = [param_display]
 
-                # 逐 task 填值；无值写空字符串
                 for task in all_tasks:
                     metrics_dict = data.get(param, {}).get(task, {})
                     val = metrics_dict.get(metric, "")
