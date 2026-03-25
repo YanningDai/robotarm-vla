@@ -157,7 +157,6 @@ EVAL_CHECKPOINTS = [
     # "../SimplerEnv/outputs/ppo,soft_gated,para1=1.0,para2=1.05,para3=0,seed=0/steps_0249"
     
     
-    # 只差这一个
     "../SimplerEnv/outputs/ppo,trgc,para1=0.05,para2=0.0,para3=1,seed=0/steps_0249",
     "../SimplerEnv/outputs/ppo,trgc,para1=0.06,para2=0.0,para3=1,seed=0/steps_0249",
     "../SimplerEnv/outputs/ppo,trgc,para1=0.07,para2=0.0,para3=1,seed=0/steps_0249",

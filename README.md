@@ -1,13 +1,17 @@
-# VLA-RL-Study: What Can RL Bring to VLA Generalization? An Empirical Study
+# VLA-RL Clipping Study
 
-[![arXiv](https://img.shields.io/badge/arXiv-2505.19789-red.svg)](http://arxiv.org/abs/2505.19789)
-[![Website](https://img.shields.io/badge/Website-RLVLA-green.svg)](https://rlvla.github.io)
-[![HuggingFace](https://img.shields.io/badge/HuggingFace-models-yellow.svg)](https://huggingface.co/collections/gen-robot/rlvla-684bc48aa6cf28bac37c57a2)
+This project investigates the role of **clipping mechanisms in reinforcement learning for Vision-Language-Action (VLA) models**, with a focus on understanding their impact on training stability, generalization, and long-horizon credit assignment.
 
-## Introduction
+Built upon the original implementation of *"What Can RL Bring to VLA Generalization? An Empirical Study"*, this repository extends the framework to systematically evaluate different clipping strategies (e.g., PPO-style clipping, KL-based constraints, and other policy divergence control methods) in VLA settings.
 
-This repository contains the code for the paper [What Can RL Bring to VLA Generalization? An Empirical Study](https://arxiv.org/abs/2505.19789).
-The pretrained checkpoints are available at [HuggingFace](https://huggingface.co/collections/gen-robot/rlvla-684bc48aa6cf28bac37c57a2).
+
+## Original Work
+
+This project is based on:
+
+> *What Can RL Bring to VLA Generalization? An Empirical Study*
+
+with modifications and extensions focusing on clipping mechanisms in RL.
 
 ## Install
 
@@ -300,12 +304,7 @@ vla_load_path=""
 ```
 
 
-### Gather results
-
-1. Option 1: Manually check the results and visualization videos: at `SimplerEnv/wandb/offline-run-xxx-xxx/glob/`
-2. Option 2: Calculate statistics: at `SimplerEnv/scripts` run `python calc_statistics.py`, then check the results at `SimplerEnv/scripts/stats`
-
-Task definition:
+### Task definition:
 
 1. `PutOnPlateInScene25VisionImage-v1`-`test`: unseen table
 2. `PutOnPlateInScene25VisionTexture03-v1`-`test`: dynamic texture (weak)

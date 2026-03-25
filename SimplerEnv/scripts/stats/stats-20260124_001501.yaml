@@ -1,0 +1,1277 @@
+PutOnPlateInScene25Carrot-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.859375
+        success: 0.640625
+      1:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.84375
+        success: 0.625
+      2:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.953125
+        success: 0.65625
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.921875
+        success: 0.734375
+      1:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.9375
+        success: 0.796875
+      2:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.875
+        success: 0.765625
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.859375
+        success: 0.640625
+      1:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.90625
+        success: 0.703125
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.9375
+        success: 0.734375
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.875
+        success: 0.6875
+      1:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.859375
+        success: 0.734375
+      2:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.921875
+        success: 0.75
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.9375
+        success: 0.796875
+      1:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.875
+        success: 0.71875
+      2:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.9375
+        success: 0.78125
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.859375
+        success: 0.703125
+      1:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.875
+        success: 0.6875
+      2:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.90625
+        success: 0.6875
+  train:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.9375
+        is_src_obj_grasped: 0.984375
+        success: 0.78125
+      1:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.9375
+        success: 0.734375
+      2:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 0.96875
+        success: 0.828125
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.953125
+        success: 0.890625
+      1:
+        consecutive_grasp: 0.953125
+        is_src_obj_grasped: 0.984375
+        success: 0.890625
+      2:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 0.984375
+        success: 0.890625
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 1.0
+        success: 0.84375
+      1:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.953125
+        success: 0.828125
+      2:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 0.953125
+        success: 0.90625
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.9375
+        is_src_obj_grasped: 1.0
+        success: 0.875
+      1:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.953125
+        success: 0.875
+      2:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 0.953125
+        success: 0.875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 1.0
+        success: 0.859375
+      1:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.953125
+        success: 0.859375
+      2:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.984375
+        success: 0.828125
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.953125
+        is_src_obj_grasped: 0.984375
+        success: 0.90625
+      1:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.9375
+        success: 0.875
+      2:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.984375
+        success: 0.8125
+PutOnPlateInScene25EEPose-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.828125
+        success: 0.578125
+      1:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.921875
+        success: 0.765625
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.890625
+        success: 0.71875
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.90625
+        success: 0.8125
+      1:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.96875
+        success: 0.84375
+      2:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.921875
+        success: 0.765625
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.875
+        success: 0.625
+      1:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.90625
+        success: 0.6875
+      2:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.875
+        success: 0.671875
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.8125
+        success: 0.671875
+      1:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.875
+        success: 0.71875
+      2:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.859375
+        success: 0.6875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.96875
+        success: 0.75
+      1:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.9375
+        success: 0.8125
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.96875
+        success: 0.78125
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.859375
+        success: 0.734375
+      1:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.921875
+        success: 0.671875
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.921875
+        success: 0.71875
+PutOnPlateInScene25Instruct-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.953125
+        success: 0.78125
+      1:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.90625
+        success: 0.765625
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.9375
+        success: 0.703125
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 0.984375
+        success: 0.84375
+      1:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.9375
+        success: 0.765625
+      2:
+        consecutive_grasp: 0.9375
+        is_src_obj_grasped: 0.96875
+        success: 0.84375
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.984375
+        success: 0.65625
+      1:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.859375
+        success: 0.734375
+      2:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.953125
+        success: 0.765625
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.953125
+        success: 0.828125
+      1:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.953125
+        success: 0.8125
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.953125
+        success: 0.6875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.984375
+        success: 0.84375
+      1:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.921875
+        success: 0.65625
+      2:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.953125
+        success: 0.75
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.921875
+        success: 0.78125
+      1:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.921875
+        success: 0.765625
+      2:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.9375
+        success: 0.703125
+PutOnPlateInScene25MultiCarrot-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.6875
+        is_src_obj_grasped: 0.71875
+        success: 0.546875
+      1:
+        consecutive_grasp: 0.59375
+        is_src_obj_grasped: 0.734375
+        success: 0.46875
+      2:
+        consecutive_grasp: 0.65625
+        is_src_obj_grasped: 0.734375
+        success: 0.53125
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.5625
+        is_src_obj_grasped: 0.734375
+        success: 0.53125
+      1:
+        consecutive_grasp: 0.578125
+        is_src_obj_grasped: 0.703125
+        success: 0.53125
+      2:
+        consecutive_grasp: 0.71875
+        is_src_obj_grasped: 0.859375
+        success: 0.671875
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.546875
+        is_src_obj_grasped: 0.6875
+        success: 0.46875
+      1:
+        consecutive_grasp: 0.609375
+        is_src_obj_grasped: 0.6875
+        success: 0.53125
+      2:
+        consecutive_grasp: 0.703125
+        is_src_obj_grasped: 0.75
+        success: 0.578125
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.71875
+        is_src_obj_grasped: 0.75
+        success: 0.484375
+      1:
+        consecutive_grasp: 0.5625
+        is_src_obj_grasped: 0.671875
+        success: 0.515625
+      2:
+        consecutive_grasp: 0.703125
+        is_src_obj_grasped: 0.796875
+        success: 0.65625
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.6875
+        is_src_obj_grasped: 0.765625
+        success: 0.53125
+      1:
+        consecutive_grasp: 0.609375
+        is_src_obj_grasped: 0.671875
+        success: 0.5
+      2:
+        consecutive_grasp: 0.703125
+        is_src_obj_grasped: 0.828125
+        success: 0.5
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.6875
+        is_src_obj_grasped: 0.796875
+        success: 0.546875
+      1:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.78125
+        success: 0.59375
+      2:
+        consecutive_grasp: 0.578125
+        is_src_obj_grasped: 0.71875
+        success: 0.53125
+  train:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.84375
+        success: 0.609375
+      1:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.828125
+        success: 0.65625
+      2:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.84375
+        success: 0.703125
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.890625
+        success: 0.75
+      1:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.8125
+        success: 0.734375
+      2:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.90625
+        success: 0.75
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.8125
+        success: 0.65625
+      1:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.84375
+        success: 0.6875
+      2:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.796875
+        success: 0.765625
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.859375
+        success: 0.78125
+      1:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.796875
+        success: 0.671875
+      2:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.8125
+        success: 0.703125
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.890625
+        success: 0.703125
+      1:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.90625
+        success: 0.78125
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.921875
+        success: 0.875
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.84375
+        success: 0.734375
+      1:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.890625
+        success: 0.765625
+      2:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.84375
+        success: 0.796875
+PutOnPlateInScene25MultiPlate-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.90625
+        success: 0.59375
+      1:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.90625
+        success: 0.5
+      2:
+        consecutive_grasp: 0.6875
+        is_src_obj_grasped: 0.796875
+        success: 0.390625
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.953125
+        success: 0.578125
+      1:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.921875
+        success: 0.5
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.921875
+        success: 0.53125
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.6875
+        is_src_obj_grasped: 0.828125
+        success: 0.453125
+      1:
+        consecutive_grasp: 0.625
+        is_src_obj_grasped: 0.8125
+        success: 0.5
+      2:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.84375
+        success: 0.484375
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.890625
+        success: 0.453125
+      1:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.859375
+        success: 0.484375
+      2:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.875
+        success: 0.46875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.921875
+        success: 0.46875
+      1:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.953125
+        success: 0.515625
+      2:
+        consecutive_grasp: 0.640625
+        is_src_obj_grasped: 0.84375
+        success: 0.34375
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.859375
+        success: 0.484375
+      1:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.875
+        success: 0.53125
+      2:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.8125
+        success: 0.484375
+  train:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.875
+        success: 0.75
+      1:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.9375
+        success: 0.640625
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.921875
+        success: 0.71875
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 0.96875
+        success: 0.796875
+      1:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.953125
+        success: 0.765625
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.875
+        success: 0.78125
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.921875
+        success: 0.734375
+      1:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.953125
+        success: 0.640625
+      2:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.90625
+        success: 0.640625
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.859375
+        success: 0.609375
+      1:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.90625
+        success: 0.703125
+      2:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.90625
+        success: 0.734375
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.9375
+        success: 0.703125
+      1:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.875
+        success: 0.625
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.921875
+        success: 0.765625
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.859375
+        success: 0.703125
+      1:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.9375
+        success: 0.765625
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.90625
+        success: 0.734375
+PutOnPlateInScene25Plate-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.875
+        success: 0.625
+      1:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.875
+        success: 0.671875
+      2:
+        consecutive_grasp: 0.6875
+        is_src_obj_grasped: 0.796875
+        success: 0.59375
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.953125
+        success: 0.71875
+      1:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.921875
+        success: 0.75
+      2:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.953125
+        success: 0.640625
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.875
+        success: 0.6875
+      1:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.859375
+        success: 0.625
+      2:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.8125
+        success: 0.65625
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 0.96875
+        success: 0.765625
+      1:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.921875
+        success: 0.6875
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.90625
+        success: 0.671875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 0.96875
+        success: 0.65625
+      1:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.921875
+        success: 0.6875
+      2:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.921875
+        success: 0.640625
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.953125
+        success: 0.6875
+      1:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.859375
+        success: 0.625
+      2:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.84375
+        success: 0.703125
+PutOnPlateInScene25Position-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.875
+        success: 0.640625
+      1:
+        consecutive_grasp: 0.71875
+        is_src_obj_grasped: 0.875
+        success: 0.5625
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.90625
+        success: 0.640625
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.921875
+        success: 0.75
+      1:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.890625
+        success: 0.71875
+      2:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.84375
+        success: 0.703125
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.890625
+        success: 0.71875
+      1:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.859375
+        success: 0.703125
+      2:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.921875
+        success: 0.640625
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.90625
+        success: 0.6875
+      1:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.9375
+        success: 0.75
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.890625
+        success: 0.671875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 1.0
+        success: 0.671875
+      1:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.84375
+        success: 0.59375
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.921875
+        success: 0.734375
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.921875
+        success: 0.703125
+      1:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.921875
+        success: 0.640625
+      2:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.828125
+        success: 0.671875
+PutOnPlateInScene25PositionChangeTo-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.890625
+        success: 0.625
+      1:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.9375
+        success: 0.734375
+      2:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.90625
+        success: 0.75
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.921875
+        success: 0.71875
+      1:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.9375
+        success: 0.703125
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.890625
+        success: 0.75
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.890625
+        success: 0.6875
+      1:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.953125
+        success: 0.734375
+      2:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.9375
+        success: 0.71875
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.875
+        success: 0.65625
+      1:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.90625
+        success: 0.671875
+      2:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.84375
+        success: 0.71875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.921875
+        success: 0.703125
+      1:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.921875
+        success: 0.703125
+      2:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.859375
+        success: 0.78125
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.8125
+        success: 0.6875
+      1:
+        consecutive_grasp: 0.703125
+        is_src_obj_grasped: 0.84375
+        success: 0.65625
+      2:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.921875
+        success: 0.75
+PutOnPlateInScene25VisionImage-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.921875
+        success: 0.828125
+      1:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.984375
+        success: 0.78125
+      2:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.96875
+        success: 0.75
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.921875
+        is_src_obj_grasped: 0.984375
+        success: 0.90625
+      1:
+        consecutive_grasp: 0.9375
+        is_src_obj_grasped: 1.0
+        success: 0.875
+      2:
+        consecutive_grasp: 0.9375
+        is_src_obj_grasped: 0.984375
+        success: 0.859375
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.921875
+        success: 0.828125
+      1:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.9375
+        success: 0.796875
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.953125
+        success: 0.765625
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.953125
+        success: 0.859375
+      1:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.953125
+        success: 0.84375
+      2:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.9375
+        success: 0.796875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.9375
+        is_src_obj_grasped: 0.984375
+        success: 0.875
+      1:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.9375
+        success: 0.859375
+      2:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.96875
+        success: 0.828125
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.953125
+        success: 0.84375
+      1:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.953125
+        success: 0.84375
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.984375
+        success: 0.8125
+PutOnPlateInScene25VisionTexture03-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.90625
+        success: 0.734375
+      1:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.90625
+        success: 0.75
+      2:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.84375
+        success: 0.671875
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.90625
+        success: 0.78125
+      1:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.859375
+        success: 0.734375
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.953125
+        success: 0.734375
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.921875
+        success: 0.75
+      1:
+        consecutive_grasp: 0.90625
+        is_src_obj_grasped: 0.9375
+        success: 0.8125
+      2:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.953125
+        success: 0.765625
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.921875
+        success: 0.796875
+      1:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.875
+        success: 0.75
+      2:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.84375
+        success: 0.6875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.90625
+        success: 0.828125
+      1:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.921875
+        success: 0.734375
+      2:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.9375
+        success: 0.640625
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.875
+        success: 0.734375
+      1:
+        consecutive_grasp: 0.796875
+        is_src_obj_grasped: 0.90625
+        success: 0.703125
+      2:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.890625
+        success: 0.765625
+PutOnPlateInScene25VisionTexture05-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.796875
+        success: 0.671875
+      1:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.8125
+        success: 0.578125
+      2:
+        consecutive_grasp: 0.65625
+        is_src_obj_grasped: 0.75
+        success: 0.5625
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.703125
+        is_src_obj_grasped: 0.765625
+        success: 0.625
+      1:
+        consecutive_grasp: 0.71875
+        is_src_obj_grasped: 0.734375
+        success: 0.578125
+      2:
+        consecutive_grasp: 0.625
+        is_src_obj_grasped: 0.71875
+        success: 0.546875
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.671875
+        is_src_obj_grasped: 0.765625
+        success: 0.546875
+      1:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.859375
+        success: 0.625
+      2:
+        consecutive_grasp: 0.625
+        is_src_obj_grasped: 0.78125
+        success: 0.53125
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.6875
+        is_src_obj_grasped: 0.734375
+        success: 0.53125
+      1:
+        consecutive_grasp: 0.65625
+        is_src_obj_grasped: 0.75
+        success: 0.515625
+      2:
+        consecutive_grasp: 0.640625
+        is_src_obj_grasped: 0.703125
+        success: 0.484375
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.71875
+        is_src_obj_grasped: 0.765625
+        success: 0.515625
+      1:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.828125
+        success: 0.59375
+      2:
+        consecutive_grasp: 0.71875
+        is_src_obj_grasped: 0.875
+        success: 0.5625
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.859375
+        success: 0.65625
+      1:
+        consecutive_grasp: 0.71875
+        is_src_obj_grasped: 0.75
+        success: 0.65625
+      2:
+        consecutive_grasp: 0.609375
+        is_src_obj_grasped: 0.78125
+        success: 0.5625
+PutOnPlateInScene25VisionWhole03-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.9375
+        success: 0.6875
+      1:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.875
+        success: 0.703125
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.921875
+        success: 0.671875
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.90625
+        success: 0.765625
+      1:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.890625
+        success: 0.703125
+      2:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.96875
+        success: 0.859375
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.9375
+        success: 0.671875
+      1:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.921875
+        success: 0.71875
+      2:
+        consecutive_grasp: 0.890625
+        is_src_obj_grasped: 0.921875
+        success: 0.828125
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.890625
+        success: 0.734375
+      1:
+        consecutive_grasp: 0.71875
+        is_src_obj_grasped: 0.828125
+        success: 0.71875
+      2:
+        consecutive_grasp: 0.859375
+        is_src_obj_grasped: 0.96875
+        success: 0.765625
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.9375
+        success: 0.796875
+      1:
+        consecutive_grasp: 0.875
+        is_src_obj_grasped: 0.921875
+        success: 0.75
+      2:
+        consecutive_grasp: 0.828125
+        is_src_obj_grasped: 0.90625
+        success: 0.796875
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.921875
+        success: 0.796875
+      1:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.875
+        success: 0.703125
+      2:
+        consecutive_grasp: 0.84375
+        is_src_obj_grasped: 0.953125
+        success: 0.84375
+PutOnPlateInScene25VisionWhole05-v1:
+  test:
+    ppo,trgc,para1=0.05,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.703125
+        is_src_obj_grasped: 0.796875
+        success: 0.578125
+      1:
+        consecutive_grasp: 0.765625
+        is_src_obj_grasped: 0.8125
+        success: 0.578125
+      2:
+        consecutive_grasp: 0.671875
+        is_src_obj_grasped: 0.765625
+        success: 0.484375
+    ppo,trgc,para1=0.06,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.703125
+        is_src_obj_grasped: 0.828125
+        success: 0.609375
+      1:
+        consecutive_grasp: 0.671875
+        is_src_obj_grasped: 0.75
+        success: 0.515625
+      2:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.875
+        success: 0.578125
+    ppo,trgc,para1=0.07,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.625
+        is_src_obj_grasped: 0.75
+        success: 0.609375
+      1:
+        consecutive_grasp: 0.703125
+        is_src_obj_grasped: 0.828125
+        success: 0.640625
+      2:
+        consecutive_grasp: 0.609375
+        is_src_obj_grasped: 0.75
+        success: 0.53125
+    ppo,trgc,para1=0.08,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.859375
+        success: 0.546875
+      1:
+        consecutive_grasp: 0.609375
+        is_src_obj_grasped: 0.734375
+        success: 0.5
+      2:
+        consecutive_grasp: 0.78125
+        is_src_obj_grasped: 0.8125
+        success: 0.6875
+    ppo,trgc,para1=0.09,para2=0.0,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.890625
+        success: 0.609375
+      1:
+        consecutive_grasp: 0.734375
+        is_src_obj_grasped: 0.84375
+        success: 0.609375
+      2:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.921875
+        success: 0.640625
+    ppo,trgc,para1=1.0,para2=0.07,para3=1+steps_0249:
+      0:
+        consecutive_grasp: 0.8125
+        is_src_obj_grasped: 0.875
+        success: 0.578125
+      1:
+        consecutive_grasp: 0.671875
+        is_src_obj_grasped: 0.75
+        success: 0.515625
+      2:
+        consecutive_grasp: 0.75
+        is_src_obj_grasped: 0.890625
+        success: 0.59375

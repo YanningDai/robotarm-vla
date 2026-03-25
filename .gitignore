@@ -21,3 +21,10 @@ __pycache__
 /SimplerEnv/wandb/
 /SimplerEnv/outputs/
 /dcgm/
+run.md
+run.py
+test.py
+warmup-test.sh
+rl.sh
+eval.sh
+warmup-test.sh
