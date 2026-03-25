@@ -133,7 +133,7 @@ def generate_statistics_tables(stats_file: Path):
             task_name = f"{env_id}-{split}"
             all_tasks.add(task_name)
 
-            ALLOWED_SEEDS = {0}
+            ALLOWED_SEEDS = {0,1,2}
             
             for params, seeds_data in split_data.items():
                 # 允许 params 为 ""（例如路径没解析出参数）

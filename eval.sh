@@ -55,7 +55,7 @@ cuda="0"
 ckpt_path="gen-robot/openvla-7b-rlvla-warmup"
 
 # start evaluation
-seed=0
+seed=2
 for env_id in \
     "PutOnPlateInScene25VisionImage-v1" \
     "PutOnPlateInScene25VisionTexture03-v1" \
